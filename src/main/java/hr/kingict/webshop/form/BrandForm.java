@@ -9,6 +9,7 @@ import javax.validation.constraints.Pattern;
 
 @Data
 public class BrandForm {
-    @NotBlank(message = "name can't be blank")
+    @NotNull
+    @NotEmpty
     private String name;
 }

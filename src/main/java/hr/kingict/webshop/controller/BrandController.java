@@ -5,6 +5,7 @@ import hr.kingict.webshop.facade.BrandFacade;
 import hr.kingict.webshop.form.BrandForm;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class BrandController {
     }
 
     @PostMapping
-    public void create(@RequestBody BrandForm brandForm) {
+    public void create(@Valid @RequestBody BrandForm brandForm) {
         brandFacade.create(brandForm);
     }
 

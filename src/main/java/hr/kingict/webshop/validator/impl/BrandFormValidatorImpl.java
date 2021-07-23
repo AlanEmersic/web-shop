@@ -20,7 +20,7 @@ public class BrandFormValidatorImpl implements BrandFormValidator {
     public void validateCreate(BrandForm form) {
         List<Brand> brands = brandService.get(form.getName().toLowerCase());
 
-        if (!brands.isEmpty() || form.getName().trim().isEmpty()) {
+        if (form.getName().trim().isEmpty() || !brands.isEmpty()) {
             throw new RuntimeException("validate ex for brand form");
         }
     }
