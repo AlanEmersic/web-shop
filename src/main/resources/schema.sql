@@ -14,6 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `webshop` DEFAULT CHARACTER SET cp1250 COLLATE cp1250_croatian_ci ;
 USE `webshop` ;
 
+DROP TABLE IF EXISTS `webshop`.`brand`;
 -- -----------------------------------------------------
 -- Table `webshop`.`brand`
 -- -----------------------------------------------------
@@ -27,6 +28,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `webshop`.`product`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `webshop`.`product`;
 CREATE TABLE IF NOT EXISTS `webshop`.`product` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -47,6 +49,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `webshop`.`paymentMethod`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `webshop`.`paymentMethod`;
 CREATE TABLE IF NOT EXISTS `webshop`.`paymentMethod` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -57,6 +60,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `webshop`.`discountCode`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `webshop`.`discountCode`;
 CREATE TABLE IF NOT EXISTS `webshop`.`discountCode` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `code` VARCHAR(255) NOT NULL,
@@ -69,6 +73,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `webshop`.`order`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `webshop`.`order`;
 CREATE TABLE IF NOT EXISTS `webshop`.`order` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date` DATETIME NOT NULL,
@@ -100,6 +105,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `webshop`.`orderProducts`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `webshop`.`orderProducts`;
 CREATE TABLE IF NOT EXISTS `webshop`.`orderProducts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `orderId` INT NOT NULL,
