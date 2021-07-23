@@ -12,3 +12,8 @@ INSERT INTO discountCode(code, discount, used)
 VALUES ('20%', 0.2, false);
 INSERT INTO discountCode(code, discount, used)
 VALUES ('15%', 0.15, false);
+
+INSERT INTO paymentMethod(name)
+VALUES ('KARTIČNO');
+INSERT INTO paymentMethod(name)
+VALUES ('GOTOVINSKO');
