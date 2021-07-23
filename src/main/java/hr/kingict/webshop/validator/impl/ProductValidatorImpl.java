@@ -23,6 +23,5 @@ public class ProductValidatorImpl implements ProductValidator {
         if (form.getName().trim().isEmpty() || !products.isEmpty()) {
             throw new RuntimeException("validate ex for product form");
         }
-
     }
 }

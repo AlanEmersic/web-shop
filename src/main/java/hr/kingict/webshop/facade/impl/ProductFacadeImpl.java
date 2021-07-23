@@ -67,7 +67,6 @@ public class ProductFacadeImpl implements ProductFacade {
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
         dto.setQuantity(product.getQuantity());
-//        System.out.println(product.getBrand().getName());
         dto.setBrandId(product.getBrand().getId());
     }
 }
