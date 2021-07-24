@@ -36,14 +36,7 @@ public class OrderFacadeImpl implements OrderFacade {
         orderFormValidator.validateCreate(orderForm);
 
         Order order = new Order();
-//        BeanUtils.copyProperties(orderForm, order);
-        order.setEmail(orderForm.getEmail());
-        order.setDate(orderForm.getDate());
-        order.setPhoneNumber(orderForm.getPhoneNumber());
-        order.setTotalPriceWithoutDiscount(orderForm.getTotalPriceWithoutDiscount());
-        order.setCardNumber(orderForm.getCardNumber());
-        order.setDeliveryAddress(orderForm.getDeliveryAddress());
-        order.setRemark(orderForm.getRemark());
+        BeanUtils.copyProperties(orderForm, order);
         order.setPaymentMethod(paymentMethodService.get(orderForm.getPaymentMethodId()));
 
         if (Objects.nonNull(orderForm.getDiscountCodeId())) {
