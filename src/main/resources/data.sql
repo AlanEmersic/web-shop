@@ -9,9 +9,9 @@ INSERT INTO product(name, description, price, quantity, brandId)
 VALUES ('MIŠ LOGITECH G500', 'MIŠ LOGITECH G500 opis', 450.99, 2, 2);
 
 INSERT INTO discountCode(code, discount, used)
-VALUES ('20%', 0.2, false);
+VALUES ('20%', 20, false);
 INSERT INTO discountCode(code, discount, used)
-VALUES ('15%', 0.15, false);
+VALUES ('15%', 15, false);
 
 INSERT INTO paymentMethod(name)
 VALUES ('KARTIČNO');

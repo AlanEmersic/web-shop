@@ -6,7 +6,7 @@ import hr.kingict.webshop.facade.ProductFacade;
 import hr.kingict.webshop.form.ProductForm;
 import hr.kingict.webshop.service.BrandService;
 import hr.kingict.webshop.service.ProductService;
-import hr.kingict.webshop.validator.ProductValidator;
+import hr.kingict.webshop.validator.ProductFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -19,17 +19,17 @@ public class ProductFacadeImpl implements ProductFacade {
 
     private final ProductService productService;
     private final BrandService brandService;
-    private final ProductValidator productValidator;
+    private final ProductFormValidator productFormValidator;
 
-    public ProductFacadeImpl(ProductService productService, BrandService brandService, ProductValidator productValidator) {
+    public ProductFacadeImpl(ProductService productService, BrandService brandService, ProductFormValidator productFormValidator) {
         this.productService = productService;
         this.brandService = brandService;
-        this.productValidator = productValidator;
+        this.productFormValidator = productFormValidator;
     }
 
     @Override
     public void create(ProductForm productForm) {
-        productValidator.validateCreate(productForm);
+        productFormValidator.validateCreate(productForm);
 
         Product product = new Product();
         BeanUtils.copyProperties(productForm, product);

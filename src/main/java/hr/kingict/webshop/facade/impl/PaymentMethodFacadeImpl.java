@@ -5,7 +5,7 @@ import hr.kingict.webshop.entity.PaymentMethod;
 import hr.kingict.webshop.facade.PaymentMethodFacade;
 import hr.kingict.webshop.form.PaymentMethodForm;
 import hr.kingict.webshop.service.PaymentMethodService;
-import hr.kingict.webshop.validator.PaymentMethodValidator;
+import hr.kingict.webshop.validator.PaymentMethodFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 @Component
 public class PaymentMethodFacadeImpl implements PaymentMethodFacade {
     private final PaymentMethodService paymentMethodService;
-    private final PaymentMethodValidator paymentMethodValidator;
+    private final PaymentMethodFormValidator paymentMethodFormValidator;
 
-    public PaymentMethodFacadeImpl(PaymentMethodService paymentMethodService, PaymentMethodValidator paymentMethodValidator) {
+    public PaymentMethodFacadeImpl(PaymentMethodService paymentMethodService, PaymentMethodFormValidator paymentMethodFormValidator) {
         this.paymentMethodService = paymentMethodService;
-        this.paymentMethodValidator = paymentMethodValidator;
+        this.paymentMethodFormValidator = paymentMethodFormValidator;
     }
 
     @Override
     public void create(PaymentMethodForm paymentMethodForm) {
-        paymentMethodValidator.validateCreate(paymentMethodForm);
+        paymentMethodFormValidator.validateCreate(paymentMethodForm);
 
         PaymentMethod paymentMethod = new PaymentMethod();
         BeanUtils.copyProperties(paymentMethodForm, paymentMethod);

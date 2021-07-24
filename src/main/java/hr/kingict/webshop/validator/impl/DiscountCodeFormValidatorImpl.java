@@ -3,16 +3,16 @@ package hr.kingict.webshop.validator.impl;
 import hr.kingict.webshop.entity.DiscountCode;
 import hr.kingict.webshop.form.DiscountCodeForm;
 import hr.kingict.webshop.service.DiscountCodeService;
-import hr.kingict.webshop.validator.DiscountCodeValidator;
+import hr.kingict.webshop.validator.DiscountCodeFormValidator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class DiscountCodeValidatorImpl implements DiscountCodeValidator {
+public class DiscountCodeFormValidatorImpl implements DiscountCodeFormValidator {
     private final DiscountCodeService discountCodeService;
 
-    public DiscountCodeValidatorImpl(DiscountCodeService discountCodeService) {
+    public DiscountCodeFormValidatorImpl(DiscountCodeService discountCodeService) {
         this.discountCodeService = discountCodeService;
     }
 

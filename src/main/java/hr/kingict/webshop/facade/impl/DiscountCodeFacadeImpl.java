@@ -5,7 +5,7 @@ import hr.kingict.webshop.entity.DiscountCode;
 import hr.kingict.webshop.facade.DiscountCodeFacade;
 import hr.kingict.webshop.form.DiscountCodeForm;
 import hr.kingict.webshop.service.DiscountCodeService;
-import hr.kingict.webshop.validator.DiscountCodeValidator;
+import hr.kingict.webshop.validator.DiscountCodeFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 @Component
 public class DiscountCodeFacadeImpl implements DiscountCodeFacade {
     private final DiscountCodeService discountCodeService;
-    private final DiscountCodeValidator discountCodeValidator;
+    private final DiscountCodeFormValidator discountCodeFormValidator;
 
-    public DiscountCodeFacadeImpl(DiscountCodeService discountCodeService, DiscountCodeValidator discountCodeValidator) {
+    public DiscountCodeFacadeImpl(DiscountCodeService discountCodeService, DiscountCodeFormValidator discountCodeFormValidator) {
         this.discountCodeService = discountCodeService;
-        this.discountCodeValidator = discountCodeValidator;
+        this.discountCodeFormValidator = discountCodeFormValidator;
     }
 
     @Override
     public void create(DiscountCodeForm discountCodeForm) {
-        discountCodeValidator.validateCreate(discountCodeForm);
+        discountCodeFormValidator.validateCreate(discountCodeForm);
 
         DiscountCode discountCode = new DiscountCode();
         BeanUtils.copyProperties(discountCodeForm, discountCode);

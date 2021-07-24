@@ -3,16 +3,16 @@ package hr.kingict.webshop.validator.impl;
 import hr.kingict.webshop.entity.Product;
 import hr.kingict.webshop.form.ProductForm;
 import hr.kingict.webshop.service.ProductService;
-import hr.kingict.webshop.validator.ProductValidator;
+import hr.kingict.webshop.validator.ProductFormValidator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ProductValidatorImpl implements ProductValidator {
+public class ProductFormValidatorImpl implements ProductFormValidator {
     private final ProductService productService;
 
-    public ProductValidatorImpl(ProductService productService) {
+    public ProductFormValidatorImpl(ProductService productService) {
         this.productService = productService;
     }
 

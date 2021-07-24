@@ -3,16 +3,16 @@ package hr.kingict.webshop.validator.impl;
 import hr.kingict.webshop.entity.PaymentMethod;
 import hr.kingict.webshop.form.PaymentMethodForm;
 import hr.kingict.webshop.service.PaymentMethodService;
-import hr.kingict.webshop.validator.PaymentMethodValidator;
+import hr.kingict.webshop.validator.PaymentMethodFormValidator;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class PaymentMethodValidatorImpl implements PaymentMethodValidator {
+public class PaymentMethodFormValidatorImpl implements PaymentMethodFormValidator {
     private final PaymentMethodService paymentMethodService;
 
-    public PaymentMethodValidatorImpl(PaymentMethodService paymentMethodService) {
+    public PaymentMethodFormValidatorImpl(PaymentMethodService paymentMethodService) {
         this.paymentMethodService = paymentMethodService;
     }
 

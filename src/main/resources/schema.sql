@@ -14,10 +14,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `webshop` DEFAULT CHARACTER SET cp1250 COLLATE cp1250_croatian_ci ;
 USE `webshop` ;
 
-DROP TABLE IF EXISTS `webshop`.`brand`;
 -- -----------------------------------------------------
 -- Table `webshop`.`brand`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `webshop`.`brand`;
 CREATE TABLE IF NOT EXISTS `webshop`.`brand` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -71,21 +71,21 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `webshop`.`order`
+-- Table `webshop`.`orders`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webshop`.`order`;
-CREATE TABLE IF NOT EXISTS `webshop`.`order` (
+DROP TABLE IF EXISTS `webshop`.`orders`;
+CREATE TABLE IF NOT EXISTS `webshop`.`orders` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `date` DATETIME NOT NULL,
   `totalPriceWithDiscount` DECIMAL(10,2) NOT NULL,
-  `totalPriceWithoutDiscount` DECIMAL(10,2) NOT NULL,
-  `discountCodeId` INT NOT NULL,
+  `totalPriceWithoutDiscount` DECIMAL(10,2) NULL,
   `paymentMethodId` INT NOT NULL,
-  `cardNumber` VARCHAR(255) NOT NULL,
+  `cardNumber` VARCHAR(255) NULL,
   `email` VARCHAR(255) NOT NULL,
   `phoneNumber` INT NOT NULL,
   `deliveryAddress` VARCHAR(255) NOT NULL,
   `remark` TEXT NULL,
+  `discountCodeId` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_order_paymentMethod1_idx` (`paymentMethodId` ASC) VISIBLE,
   INDEX `fk_order_discountCode1_idx` (`discountCodeId` ASC) VISIBLE,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `webshop`.`orderProducts` (
   INDEX `fk_orderProducts_product1_idx` (`productId` ASC) VISIBLE,
   CONSTRAINT `fk_orderProducts_order1`
     FOREIGN KEY (`orderId`)
-    REFERENCES `webshop`.`order` (`id`)
+    REFERENCES `webshop`.`orders` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_orderProducts_product1`

@@ -2,6 +2,6 @@ package hr.kingict.webshop.validator;
 
 import hr.kingict.webshop.form.DiscountCodeForm;
 
-public interface DiscountCodeValidator {
+public interface DiscountCodeFormValidator {
     void validateCreate(DiscountCodeForm form);
 }
