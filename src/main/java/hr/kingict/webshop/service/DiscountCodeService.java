@@ -9,6 +9,8 @@ public interface DiscountCodeService {
 
     DiscountCode get(Long id);
 
+    DiscountCode getByCode(String code);
+
     List<DiscountCode> get(String code);
 
     List<DiscountCode> getAll();

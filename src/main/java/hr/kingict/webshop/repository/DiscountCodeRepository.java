@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DiscountCodeRepository extends JpaRepository<DiscountCode, Long> {
     List<DiscountCode> findAllByCode(String code);
+    DiscountCode findDistinctTopByCodeIgnoreCase(String code);
 }

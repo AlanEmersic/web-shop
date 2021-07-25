@@ -24,6 +24,11 @@ public class DiscountCodeController {
         return discountCodeFacade.get(id);
     }
 
+    @GetMapping("code/{code}")
+    public DiscountCodeDto get(@PathVariable String code) {
+        return discountCodeFacade.getByCode(code);
+    }
+
     @GetMapping
     public List<DiscountCodeDto> getAll() {
         return discountCodeFacade.getAll();

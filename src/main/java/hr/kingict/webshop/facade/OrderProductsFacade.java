@@ -10,7 +10,7 @@ public interface OrderProductsFacade {
 
     OrderProductsDto get(Long id);
 
-    List<OrderProductsDto> getAll();
+    List<OrderProductsDto> getAll(Long id);
 
     void delete(Long id);
 }

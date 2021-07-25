@@ -63,6 +63,8 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     private void mapProductToDto(Product product, ProductDto dto) {
+        dto.setId(product.getId());
+        dto.setBrandId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());

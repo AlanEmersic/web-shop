@@ -43,6 +43,16 @@ public class DiscountCodeFacadeImpl implements DiscountCodeFacade {
     }
 
     @Override
+    public DiscountCodeDto getByCode(String code) {
+        return Optional.of(discountCodeService.getByCode(code)).map(discountCode -> {
+            DiscountCodeDto dto = new DiscountCodeDto();
+            mapDiscountCodeToDto(discountCode, dto);
+
+            return dto;
+        }).orElse(null);
+    }
+
+    @Override
     public List<DiscountCodeDto> getAll() {
         return discountCodeService.getAll().stream().map(discountCode -> {
             DiscountCodeDto dto = new DiscountCodeDto();
@@ -58,6 +68,7 @@ public class DiscountCodeFacadeImpl implements DiscountCodeFacade {
     }
 
     private void mapDiscountCodeToDto(DiscountCode discountCode, DiscountCodeDto dto) {
+        dto.setId(discountCode.getId());
         dto.setCode(discountCode.getCode());
         dto.setDiscount(discountCode.getDiscount());
         dto.setUsed(discountCode.getUsed());

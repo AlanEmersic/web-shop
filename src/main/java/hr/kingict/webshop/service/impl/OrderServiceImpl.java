@@ -28,11 +28,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getLastOrder() {
-        return orderRepository.findTopByOrderByIdDesc();
-    }
-
-    @Override
     public List<Order> getAll() {
         return orderRepository.findAll();
     }

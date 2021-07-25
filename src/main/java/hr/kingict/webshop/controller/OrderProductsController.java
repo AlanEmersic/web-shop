@@ -23,9 +23,9 @@ public class OrderProductsController {
         return orderProductsFacade.get(id);
     }
 
-    @GetMapping
-    public List<OrderProductsDto> getAll() {
-        return orderProductsFacade.getAll();
+    @GetMapping("/order/{id}")
+    public List<OrderProductsDto> getAll(@PathVariable Long id) {
+        return orderProductsFacade.getAll(id);
     }
 
     @PostMapping

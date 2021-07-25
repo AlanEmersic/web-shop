@@ -28,6 +28,11 @@ public class DiscountCodeServiceImpl implements DiscountCodeService {
     }
 
     @Override
+    public DiscountCode getByCode(String code) {
+        return discountCodeRepository.findDistinctTopByCodeIgnoreCase(code.toLowerCase());
+    }
+
+    @Override
     public List<DiscountCode> get(String code) {
         return discountCodeRepository.findAllByCode(code);
     }

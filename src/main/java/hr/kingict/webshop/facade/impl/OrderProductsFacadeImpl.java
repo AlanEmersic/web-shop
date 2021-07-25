@@ -43,12 +43,8 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
         OrderProducts orderProducts = new OrderProducts();
         Product product = productService.get(orderProductsForm.getProductId());
         product.setQuantity(product.getQuantity() - 1);
-        Long orderId = 1L;
-        if (orderService.getLastOrder() != null) {
-            orderId = orderService.getLastOrder().getId() + 1;
-        }
         Order order = new Order();
-        orderDefaultValues(order, orderId);
+        orderDefaultValues(order, 1L);
         orderService.save(order);
         orderProducts.setOrder(order);
         orderProducts.setProduct(product);
@@ -68,13 +64,15 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
     }
 
     @Override
-    public List<OrderProductsDto> getAll() {
-        return orderProductsService.getAll().stream().map(orderProducts -> {
-            OrderProductsDto dto = new OrderProductsDto();
-            mapOrderProductsToDto(orderProducts, dto);
+    public List<OrderProductsDto> getAll(Long id) {
+        return orderProductsService.getAll().stream()
+                .filter(orderProducts -> orderProducts.getOrder().getId().equals(id))
+                .map(orderProducts -> {
+                    OrderProductsDto dto = new OrderProductsDto();
+                    mapOrderProductsToDto(orderProducts, dto);
 
-            return dto;
-        }).collect(Collectors.toList());
+                    return dto;
+                }).collect(Collectors.toList());
     }
 
     @Override
@@ -87,6 +85,7 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
     }
 
     private void mapOrderProductsToDto(OrderProducts orderProducts, OrderProductsDto dto) {
+        dto.setId(orderProducts.getId());
         dto.setOrderId(orderProducts.getOrder().getId());
         dto.setProductId(orderProducts.getProduct().getId());
     }

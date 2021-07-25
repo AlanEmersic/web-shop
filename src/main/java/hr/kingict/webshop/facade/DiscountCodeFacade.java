@@ -10,6 +10,8 @@ public interface DiscountCodeFacade {
 
     DiscountCodeDto get(Long id);
 
+    DiscountCodeDto getByCode(String code);
+
     List<DiscountCodeDto> getAll();
 
     void delete(Long id);

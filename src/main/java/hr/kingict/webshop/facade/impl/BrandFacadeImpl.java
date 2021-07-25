@@ -1,7 +1,9 @@
 package hr.kingict.webshop.facade.impl;
 
 import hr.kingict.webshop.dto.BrandDto;
+import hr.kingict.webshop.dto.ProductDto;
 import hr.kingict.webshop.entity.Brand;
+import hr.kingict.webshop.entity.Product;
 import hr.kingict.webshop.facade.BrandFacade;
 import hr.kingict.webshop.form.BrandForm;
 import hr.kingict.webshop.service.BrandService;
@@ -37,7 +39,7 @@ public class BrandFacadeImpl implements BrandFacade {
     public BrandDto get(Long id) {
         return Optional.of(brandService.get(id)).map(brand -> {
             BrandDto dto = new BrandDto();
-            dto.setName(brand.getName());
+            mapBrandToDto(brand, dto);
 
             return dto;
         }).orElse(null);
@@ -47,7 +49,7 @@ public class BrandFacadeImpl implements BrandFacade {
     public List<BrandDto> getAll() {
         return brandService.getAll().stream().map(brand -> {
             BrandDto dto = new BrandDto();
-            dto.setName(brand.getName());
+            mapBrandToDto(brand, dto);
 
             return dto;
         }).collect(Collectors.toList());
@@ -56,5 +58,10 @@ public class BrandFacadeImpl implements BrandFacade {
     @Override
     public void delete(Long id) {
         brandService.delete(brandService.get(id));
+    }
+
+    private void mapBrandToDto(Brand brand, BrandDto dto) {
+        dto.setId(brand.getId());
+        dto.setName(brand.getName());
     }
 }
