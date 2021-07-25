@@ -42,10 +42,9 @@ public class OrderFacadeImpl implements OrderFacade {
         if (Objects.nonNull(orderForm.getDiscountCodeId())) {
             order.setDiscountCode(discountCodeService.get(orderForm.getDiscountCodeId()));
             Float discountPrice = orderForm.getTotalPriceWithoutDiscount() - orderForm.getTotalPriceWithoutDiscount() *
-                            (discountCodeService.get(orderForm.getDiscountCodeId()).getDiscount() * 0.01f);
+                    (discountCodeService.get(orderForm.getDiscountCodeId()).getDiscount() * 0.01f);
             order.setTotalPriceWithDiscount(discountPrice);
-        }
-        else
+        } else
             order.setTotalPriceWithDiscount(orderForm.getTotalPriceWithoutDiscount());
 
         orderService.save(order);
@@ -54,6 +53,16 @@ public class OrderFacadeImpl implements OrderFacade {
     @Override
     public OrderDto get(Long id) {
         return Optional.of(orderService.get(id)).map(order -> {
+            OrderDto dto = new OrderDto();
+            mapOrderToDto(order, dto);
+
+            return dto;
+        }).orElse(null);
+    }
+
+    @Override
+    public OrderDto getLast() {
+        return Optional.of(orderService.getLastOrder()).map(order -> {
             OrderDto dto = new OrderDto();
             mapOrderToDto(order, dto);
 
@@ -85,7 +94,8 @@ public class OrderFacadeImpl implements OrderFacade {
         dto.setPhoneNumber(order.getPhoneNumber());
         dto.setTotalPriceWithDiscount(order.getTotalPriceWithDiscount());
         dto.setTotalPriceWithoutDiscount(order.getTotalPriceWithoutDiscount());
-        dto.setDiscountCodeId(order.getDiscountCode().getId());
+        if (Objects.nonNull(order.getDiscountCode()))
+            dto.setDiscountCodeId(order.getDiscountCode().getId());
         dto.setPaymentMethodId(order.getPaymentMethod().getId());
     }
 }

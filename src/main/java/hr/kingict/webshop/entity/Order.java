@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +22,10 @@ public class Order {
     @ManyToOne(targetEntity = PaymentMethod.class)
     @JoinColumn(name = "paymentMethodId", updatable = false)
     private PaymentMethod paymentMethod;
+
+    @OneToMany(targetEntity = OrderProducts.class, mappedBy = "order",
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProducts> orderProducts = new ArrayList<>();
 
     private LocalDate date;
     private Float totalPriceWithDiscount;

@@ -23,6 +23,11 @@ public class OrderController {
         return orderFacade.get(id);
     }
 
+    @GetMapping("/order")
+    public OrderDto getOrder() {
+        return orderFacade.getLast();
+    }
+
     @GetMapping
     public List<OrderDto> getAll() {
         return orderFacade.getAll();

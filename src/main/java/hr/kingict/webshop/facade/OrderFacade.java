@@ -10,6 +10,8 @@ public interface OrderFacade {
 
     OrderDto get(Long id);
 
+    OrderDto getLast();
+
     List<OrderDto> getAll();
 
     void delete(Long id);
