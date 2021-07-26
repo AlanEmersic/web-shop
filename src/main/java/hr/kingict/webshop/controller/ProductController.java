@@ -25,8 +25,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductDto> getAll() {
-        return productFacade.getAll();
+    public List<ProductDto> getAll(@RequestParam(required = false) String sort) {
+        return productFacade.getAll(sort);
     }
 
     @PostMapping

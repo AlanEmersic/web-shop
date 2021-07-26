@@ -12,7 +12,7 @@ public interface ProductService {
 
     List<Product> get(String name);
 
-    List<Product> getAll();
+    List<Product> getAll(String sort);
 
     void delete(Product product);
 }

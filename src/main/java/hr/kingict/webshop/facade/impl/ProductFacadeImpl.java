@@ -11,7 +11,9 @@ import hr.kingict.webshop.validator.ProductFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,7 @@ public class ProductFacadeImpl implements ProductFacade {
     private final BrandService brandService;
     private final ProductFormValidator productFormValidator;
     private final ProductDtoMapper productDtoMapper;
+    private final List<String> validSorts = Arrays.asList("name", "brand", "price");
 
     public ProductFacadeImpl(ProductService productService, BrandService brandService,
                              ProductFormValidator productFormValidator, ProductDtoMapper productDtoMapper) {
@@ -43,12 +46,15 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public ProductDto get(Long id) {
-       return productDtoMapper.map(productService.get(id));
+        return productDtoMapper.map(productService.get(id));
     }
 
     @Override
-    public List<ProductDto> getAll() {
-        return productService.getAll().stream().map(productDtoMapper::map).collect(Collectors.toList());
+    public List<ProductDto> getAll(String sort) {
+        if (!validSorts.contains(sort))
+            sort = "name";
+
+        return productService.getAll(sort).stream().map(productDtoMapper::map).collect(Collectors.toList());
     }
 
     @Override

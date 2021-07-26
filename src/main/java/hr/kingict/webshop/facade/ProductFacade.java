@@ -10,7 +10,7 @@ public interface ProductFacade {
 
     ProductDto get(Long id);
 
-    List<ProductDto> getAll();
+    List<ProductDto> getAll(String sort);
 
     void delete(Long id);
 }

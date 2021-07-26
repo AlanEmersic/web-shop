@@ -3,6 +3,7 @@ package hr.kingict.webshop.service.impl;
 import hr.kingict.webshop.entity.Product;
 import hr.kingict.webshop.repository.ProductRepository;
 import hr.kingict.webshop.service.ProductService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<Product> getAll(String sort) {
+        return productRepository.findAll(Sort.by(sort));
     }
 
     @Override
