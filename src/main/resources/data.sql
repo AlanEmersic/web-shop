@@ -14,9 +14,7 @@ VALUES ('LG');
 INSERT INTO product(name, description, price, quantity, brandId)
 VALUES ('MIŠ RAZER DEATHADDER', 'MIŠ RAZER DEATHADDER opis', 650.99, 1, 1);
 INSERT INTO product(name, description, price, quantity, brandId)
-VALUES ('MIŠ LOGITECH G500', 'MIŠ LOGITECH G500 opis', 450.99, 2, 2);
-INSERT INTO product(name, description, price, quantity, brandId)
-VALUES ('Tipkovnica Kingston HyperX Origins Core', 'Tipkovnica Kingston opis', 560, 1, 3);
+VALUES ('MIŠ LOGITECH G500', 'MIŠ LOGITECH G500 opis', 450.99, 1, 2);
 INSERT INTO product(name, description, price, quantity, brandId)
 VALUES ('Miš REDRAGON COBRA CHROMA M711', 'COBRA CHROMA M711 opis', 160, 1, 4);
 
