@@ -1,11 +1,10 @@
 package hr.kingict.webshop.facade.impl;
 
 import hr.kingict.webshop.dto.BrandDto;
-import hr.kingict.webshop.dto.ProductDto;
 import hr.kingict.webshop.entity.Brand;
-import hr.kingict.webshop.entity.Product;
 import hr.kingict.webshop.facade.BrandFacade;
 import hr.kingict.webshop.form.BrandForm;
+import hr.kingict.webshop.mapper.BrandDtoMapper;
 import hr.kingict.webshop.service.BrandService;
 import hr.kingict.webshop.validator.BrandFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -20,10 +19,12 @@ public class BrandFacadeImpl implements BrandFacade {
 
     private final BrandService brandService;
     private final BrandFormValidator brandFormValidator;
+    private final BrandDtoMapper brandDtoMapper;
 
-    public BrandFacadeImpl(BrandService brandService, BrandFormValidator brandFormValidator) {
+    public BrandFacadeImpl(BrandService brandService, BrandFormValidator brandFormValidator, BrandDtoMapper brandDtoMapper) {
         this.brandService = brandService;
         this.brandFormValidator = brandFormValidator;
+        this.brandDtoMapper = brandDtoMapper;
     }
 
     @Override
@@ -37,31 +38,16 @@ public class BrandFacadeImpl implements BrandFacade {
 
     @Override
     public BrandDto get(Long id) {
-        return Optional.of(brandService.get(id)).map(brand -> {
-            BrandDto dto = new BrandDto();
-            mapBrandToDto(brand, dto);
-
-            return dto;
-        }).orElse(null);
+        return brandDtoMapper.map(brandService.get(id));
     }
 
     @Override
     public List<BrandDto> getAll() {
-        return brandService.getAll().stream().map(brand -> {
-            BrandDto dto = new BrandDto();
-            mapBrandToDto(brand, dto);
-
-            return dto;
-        }).collect(Collectors.toList());
+        return brandService.getAll().stream().map(brandDtoMapper::map).collect(Collectors.toList());
     }
 
     @Override
     public void delete(Long id) {
         brandService.delete(brandService.get(id));
-    }
-
-    private void mapBrandToDto(Brand brand, BrandDto dto) {
-        dto.setId(brand.getId());
-        dto.setName(brand.getName());
     }
 }

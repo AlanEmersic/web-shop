@@ -4,6 +4,7 @@ import hr.kingict.webshop.dto.PaymentMethodDto;
 import hr.kingict.webshop.entity.PaymentMethod;
 import hr.kingict.webshop.facade.PaymentMethodFacade;
 import hr.kingict.webshop.form.PaymentMethodForm;
+import hr.kingict.webshop.mapper.PaymentMethodDtoMapper;
 import hr.kingict.webshop.service.PaymentMethodService;
 import hr.kingict.webshop.validator.PaymentMethodFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -17,10 +18,14 @@ import java.util.stream.Collectors;
 public class PaymentMethodFacadeImpl implements PaymentMethodFacade {
     private final PaymentMethodService paymentMethodService;
     private final PaymentMethodFormValidator paymentMethodFormValidator;
+    private final PaymentMethodDtoMapper paymentMethodDtoMapper;
 
-    public PaymentMethodFacadeImpl(PaymentMethodService paymentMethodService, PaymentMethodFormValidator paymentMethodFormValidator) {
+    public PaymentMethodFacadeImpl(PaymentMethodService paymentMethodService,
+                                   PaymentMethodFormValidator paymentMethodFormValidator,
+                                   PaymentMethodDtoMapper paymentMethodDtoMapper) {
         this.paymentMethodService = paymentMethodService;
         this.paymentMethodFormValidator = paymentMethodFormValidator;
+        this.paymentMethodDtoMapper = paymentMethodDtoMapper;
     }
 
     @Override
@@ -34,22 +39,12 @@ public class PaymentMethodFacadeImpl implements PaymentMethodFacade {
 
     @Override
     public PaymentMethodDto get(Long id) {
-        return Optional.of(paymentMethodService.get(id)).map(paymentMethod -> {
-            PaymentMethodDto dto = new PaymentMethodDto();
-            dto.setName(paymentMethod.getName());
-
-            return dto;
-        }).orElse(null);
+        return paymentMethodDtoMapper.map(paymentMethodService.get(id));
     }
 
     @Override
     public List<PaymentMethodDto> getAll() {
-        return paymentMethodService.getAll().stream().map(paymentMethod -> {
-            PaymentMethodDto dto = new PaymentMethodDto();
-            dto.setName(paymentMethod.getName());
-
-            return dto;
-        }).collect(Collectors.toList());
+        return paymentMethodService.getAll().stream().map(paymentMethodDtoMapper::map).collect(Collectors.toList());
     }
 
     @Override

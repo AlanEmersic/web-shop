@@ -6,6 +6,7 @@ import hr.kingict.webshop.entity.OrderProducts;
 import hr.kingict.webshop.entity.Product;
 import hr.kingict.webshop.facade.OrderProductsFacade;
 import hr.kingict.webshop.form.OrderProductsForm;
+import hr.kingict.webshop.mapper.OrderProductsDtoMapper;
 import hr.kingict.webshop.service.OrderProductsService;
 import hr.kingict.webshop.service.OrderService;
 import hr.kingict.webshop.service.PaymentMethodService;
@@ -25,16 +26,19 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
     private final ProductService productService;
     private final OrderService orderService;
     private final PaymentMethodService paymentMethodService;
+    private final OrderProductsDtoMapper orderProductsDtoMapper;
 
     public OrderProductsFacadeImpl(OrderProductsService orderProductsService,
                                    OrderProductsFormValidator orderProductsFormValidator,
                                    ProductService productService, OrderService orderService,
-                                   PaymentMethodService paymentMethodService) {
+                                   PaymentMethodService paymentMethodService,
+                                   OrderProductsDtoMapper orderProductsDtoMapper) {
         this.orderProductsService = orderProductsService;
         this.orderProductsFormValidator = orderProductsFormValidator;
         this.productService = productService;
         this.orderService = orderService;
         this.paymentMethodService = paymentMethodService;
+        this.orderProductsDtoMapper = orderProductsDtoMapper;
     }
 
     @Override
@@ -44,7 +48,7 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
         Product product = productService.get(orderProductsForm.getProductId());
         product.setQuantity(product.getQuantity() - 1);
         Order order = new Order();
-        orderDefaultValues(order, 1L);
+        orderProductsDtoMapper.orderDefaultValues(order, 1L, paymentMethodService);
         orderService.save(order);
         orderProducts.setOrder(order);
         orderProducts.setProduct(product);
@@ -55,24 +59,14 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
 
     @Override
     public OrderProductsDto get(Long id) {
-        return Optional.of(orderProductsService.get(id)).map(orderProducts -> {
-            OrderProductsDto dto = new OrderProductsDto();
-            mapOrderProductsToDto(orderProducts, dto);
-
-            return dto;
-        }).orElse(null);
+        return orderProductsDtoMapper.map(orderProductsService.get(id));
     }
 
     @Override
     public List<OrderProductsDto> getAll(Long id) {
         return orderProductsService.getAll().stream()
                 .filter(orderProducts -> orderProducts.getOrder().getId().equals(id))
-                .map(orderProducts -> {
-                    OrderProductsDto dto = new OrderProductsDto();
-                    mapOrderProductsToDto(orderProducts, dto);
-
-                    return dto;
-                }).collect(Collectors.toList());
+                .map(orderProductsDtoMapper::map).collect(Collectors.toList());
     }
 
     @Override
@@ -82,22 +76,5 @@ public class OrderProductsFacadeImpl implements OrderProductsFacade {
         product.setQuantity(product.getQuantity() + 1);
         productService.save(product);
         orderProductsService.delete(orderProducts);
-    }
-
-    private void mapOrderProductsToDto(OrderProducts orderProducts, OrderProductsDto dto) {
-        dto.setId(orderProducts.getId());
-        dto.setOrderId(orderProducts.getOrder().getId());
-        dto.setProductId(orderProducts.getProduct().getId());
-    }
-
-    private void orderDefaultValues(Order order, Long id) {
-        order.setId(id);
-        order.setDate(LocalDate.now());
-        order.setTotalPriceWithoutDiscount(0f);
-        order.setTotalPriceWithDiscount(0f);
-        order.setPaymentMethod(paymentMethodService.get(1L));
-        order.setEmail("");
-        order.setPhoneNumber("0");
-        order.setDeliveryAddress("");
     }
 }
